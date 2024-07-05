@@ -1,5 +1,6 @@
 # these dependencies are only needed for unit testing
 find_package(ament_cmake_gtest REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
 ament_add_gtest(test_row_step test_row_step.cpp)
 ament_target_dependencies(test_row_step
@@ -19,6 +20,7 @@ target_link_libraries(test_calibration
 )
 
 ament_target_dependencies(test_calibration
+  ament_index_cpp
   rclcpp
 )
 
