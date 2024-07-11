@@ -329,6 +329,8 @@ void RawData::unpack(
         if (timing_offsets_.size()) {
           time = timing_offsets_[i][j] + time_diff_start_to_this_packet;
         }
+        else
+          time = time_diff_start_to_this_packet;
 
         if (tmp.uint == 0) {  // no valid laser beam return
           // call to addPoint is still required since output could be organized
