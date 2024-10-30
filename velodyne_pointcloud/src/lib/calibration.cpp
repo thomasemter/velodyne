@@ -235,7 +235,7 @@ Calibration::Calibration(const std::string & calibration_file)
   std::ifstream fin(calibration_file.c_str());
 
   if (!fin.is_open()) {
-    throw std::runtime_error("Failed to open calibration file " + calibration_file);
+    throw std::runtime_error("Failed to open calibration file");
   }
 
   try {
