@@ -41,8 +41,8 @@ target_link_libraries(velodyne_driver
 )
 
 add_executable(velodyne_driver_node src/driver/velodyne_node.cpp)
-ament_target_dependencies(velodyne_driver_node
-  rclcpp
+target_link_libraries(velodyne_driver_node
+  rclcpp::rclcpp
 )
 target_link_libraries(velodyne_driver_node velodyne_driver)
 
