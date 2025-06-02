@@ -1,15 +1,18 @@
 add_library(velodyne_rawdata SHARED
   rawdata.cpp
   calibration.cpp)
-ament_target_dependencies(velodyne_rawdata
-  angles
-  geometry_msgs
-  rclcpp
-  sensor_msgs
-  tf2
-  tf2_ros
-  velodyne_msgs
+target_link_libraries(velodyne_rawdata
+  ${geometry_msgs_TARGETS}
+  ${sensor_msgs_TARGETS}
+  ${velodyne_msgs_TARGETS}
+  angles::angles
+  rclcpp::rclcpp
+  sensor_msgs::sensor_msgs_library
+  tf2::tf2
+  tf2_ros::static_transform_broadcaster_node
+  tf2_ros::tf2_ros
 )
+
 target_link_libraries(velodyne_rawdata
   ${PCL_LIBRARIES}
 )
@@ -21,12 +24,15 @@ add_library(velodyne_cloud_types SHARED
   pointcloudXYZIRT.cpp
   organized_cloudXYZIRT.cpp
 )
-ament_target_dependencies(velodyne_cloud_types
-  rclcpp
-  sensor_msgs
-  tf2_ros
-  velodyne_msgs
+target_link_libraries(velodyne_cloud_types
+  ${sensor_msgs_TARGETS}
+  ${velodyne_msgs_TARGETS}
+  rclcpp::rclcpp
+  sensor_msgs::sensor_msgs_library
+  tf2_ros::static_transform_broadcaster_node
+  tf2_ros::tf2_ros
 )
+
 target_link_libraries(velodyne_cloud_types
   ${PCL_LIBRARIES}
 )

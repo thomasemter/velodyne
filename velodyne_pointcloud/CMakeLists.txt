@@ -47,14 +47,17 @@ add_subdirectory(src/lib)
 
 add_library(transform SHARED
   src/conversions/transform.cpp)
-ament_target_dependencies(transform
-  diagnostic_updater
-  message_filters
-  rclcpp
-  rclcpp_components
-  tf2
-  tf2_ros
+target_link_libraries(transform
+  diagnostic_updater::diagnostic_updater
+  message_filters::message_filters
+  rclcpp::rclcpp
+  rclcpp_components::component
+  rclcpp_components::component_manager
+  tf2::tf2
+  tf2_ros::static_transform_broadcaster_node
+  tf2_ros::tf2_ros
 )
+
 target_link_libraries(transform
   velodyne_cloud_types
   velodyne_rawdata
@@ -69,8 +72,8 @@ rclcpp_components_register_nodes(transform
 
 add_executable(velodyne_transform_node
   src/conversions/transform_node.cpp)
-ament_target_dependencies(velodyne_transform_node
-  rclcpp
+target_link_libraries(velodyne_transform_node
+  rclcpp::rclcpp
 )
 target_link_libraries(velodyne_transform_node
   transform)

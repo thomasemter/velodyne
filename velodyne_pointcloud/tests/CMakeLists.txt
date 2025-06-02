@@ -3,13 +3,16 @@ find_package(ament_cmake_gtest REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 
 ament_add_gtest(test_row_step test_row_step.cpp)
-ament_target_dependencies(test_row_step
-  geometry_msgs
-  rclcpp
-  sensor_msgs
-  tf2_ros
-  velodyne_msgs
+target_link_libraries(test_row_step
+  ${geometry_msgs_TARGETS}
+  ${sensor_msgs_TARGETS}
+  ${velodyne_msgs_TARGETS}
+  rclcpp::rclcpp
+  sensor_msgs::sensor_msgs_library
+  tf2_ros::static_transform_broadcaster_node
+  tf2_ros::tf2_ros
 )
+
 
 ament_add_gtest(test_calibration
   test_calibration.cpp
@@ -19,9 +22,9 @@ target_link_libraries(test_calibration
   velodyne_rawdata
 )
 
-ament_target_dependencies(test_calibration
-  ament_index_cpp
-  rclcpp
+target_link_libraries(test_calibration
+  ament_index_cpp::ament_index_cpp
+  rclcpp::rclcpp
 )
 
 target_link_libraries(test_calibration

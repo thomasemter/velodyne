@@ -20,11 +20,15 @@ include_directories(include)
 add_library(${PROJECT_NAME} SHARED
   src/velodyne_laserscan.cpp
 )
-ament_target_dependencies(${PROJECT_NAME}
-  rclcpp
-  rclcpp_components
-  sensor_msgs
+target_link_libraries(${PROJECT_NAME}
+  ${sensor_msgs_TARGETS}
+  rclcpp::rclcpp
+  rclcpp_components::component
+  rclcpp_components::component_manager
+  sensor_msgs::sensor_msgs_library
 )
+
+
 
 rclcpp_components_register_nodes(${PROJECT_NAME}
   "velodyne_laserscan::VelodyneLaserScan")
@@ -32,10 +36,9 @@ rclcpp_components_register_nodes(${PROJECT_NAME}
 add_executable(${PROJECT_NAME}_node
   src/node.cpp
 )
-ament_target_dependencies(${PROJECT_NAME}_node
-  rclcpp
+target_link_libraries(${PROJECT_NAME}_node 
+${PROJECT_NAME}
 )
-target_link_libraries(${PROJECT_NAME}_node ${PROJECT_NAME})
 
 install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION lib

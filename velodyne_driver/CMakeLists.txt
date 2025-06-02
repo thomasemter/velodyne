@@ -28,15 +28,17 @@ add_subdirectory(src/lib)
 
 # build the driver node
 add_library(velodyne_driver SHARED src/driver/driver.cpp)
-ament_target_dependencies(velodyne_driver
-  diagnostic_msgs
-  diagnostic_updater
-  rclcpp
-  rclcpp_components
-  tf2_ros
-  velodyne_msgs
+target_link_libraries(velodyne_driver
+  velodyne_input
+  ${diagnostic_msgs_TARGETS}
+  ${velodyne_msgs_TARGETS}
+  diagnostic_updater::diagnostic_updater
+  rclcpp::rclcpp
+  rclcpp_components::component
+  rclcpp_components::component_manager
+  tf2_ros::static_transform_broadcaster_node
+  tf2_ros::tf2_ros
 )
-target_link_libraries(velodyne_driver velodyne_input)
 
 add_executable(velodyne_driver_node src/driver/velodyne_node.cpp)
 ament_target_dependencies(velodyne_driver_node
